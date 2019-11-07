@@ -20,7 +20,7 @@ class Rochambeau
       while @choice.nil?
         letter = input 'Rock (r), Paper (p) or Scissors (s)?'
         @choice = rpc_to_choice letter
-        puts "It's simple! Type r or p or s and press ENTER."
+        puts "It's simple! Type r or p or s and press ENTER." if @choice.nil?
       end
 
       @random = random_choice
@@ -32,10 +32,10 @@ class Rochambeau
       outcome = Rochambeau.compare @choice, @random
       if outcome.positive?
         puts 'Yo! You won!'
-      elsif outcome.zero?
-        puts 'Match draw.'
-      else
+      elsif outcome.negative?
         puts 'Yo! Bot won! Better luck next time.'
+      else
+        puts 'Match draw.'
       end
     end
 
