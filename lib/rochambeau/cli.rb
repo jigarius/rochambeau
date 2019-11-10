@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Rochambeau
-
   ##
   # Rochambeau command-line interface.
   class Cli
