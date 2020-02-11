@@ -11,11 +11,11 @@ Metrics/PerceivedComplexity:
 Metrics/BlockLength:
   Max: 64
   Exclude:
-    - 'spec'
+    - './spec/**/*.rb'
 
 Metrics/LineLength:
   Exclude:
-    - 'spec'
+    - './spec/**/*.rb'
 
 Metrics/MethodLength:
   Max: 64

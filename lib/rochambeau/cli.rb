@@ -20,7 +20,7 @@ class Rochambeau
         initial = input 'Rock (r), Paper (p) or Scissors (s)?'
         begin
           @choice = Rochambeau::Option.from_initial initial
-        rescue Rochambeau::InvalidOptionError => e
+        rescue Rochambeau::InvalidOptionError
           puts "It's simple! Type r or p or s and press ENTER." if @choice.nil?
         end
       end

@@ -52,12 +52,14 @@ class Rochambeau
     # @param [String] initial
     #   An option initial, e.g. r, p, s.
     def self.from_initial(initial)
-      value = nil
-
       case initial.downcase
       when 'r' then value = ROCK
       when 'p' then value = PAPER
       when 's' then value = SCISSORS
+      end
+
+      if value.nil?
+        raise Rochambeau::InvalidOptionError, "Invalid initial '#{initial}'."
       end
 
       new value
