@@ -11,4 +11,5 @@ install:
 
 script:
   - bundle exec rubocop
+  - bundle exec srb
   - bundle exec rspec

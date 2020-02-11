@@ -3,3 +3,6 @@
 
 # Bundle files.
 .bundle
+
+# Sorbet.
+sorbet/rbi/hidden-definitions/errors.txt
