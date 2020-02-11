@@ -6,3 +6,7 @@ ruby '2.6.3'
 
 gem 'rspec'
 gem 'rubocop'
+
+# Sorbet
+gem 'sorbet', group: :development
+gem 'sorbet-runtime'

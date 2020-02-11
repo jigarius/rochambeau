@@ -29,6 +29,10 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
+    sorbet (0.5.5351)
+      sorbet-static (= 0.5.5351)
+    sorbet-runtime (0.5.5351)
+    sorbet-static (0.5.5351-universal-darwin-19)
     unicode-display_width (1.6.0)
 
 PLATFORMS
@@ -37,6 +41,11 @@ PLATFORMS
 DEPENDENCIES
   rspec
   rubocop
+  sorbet
+  sorbet-runtime
+
+RUBY VERSION
+   ruby 2.6.3p62
 
 BUNDLED WITH
-   2.0.2
+   2.1.4
