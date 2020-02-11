@@ -8,5 +8,14 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+Metrics/BlockLength:
+  Max: 64
+  Exclude:
+    - 'spec'
+
+Metrics/LineLength:
+  Exclude:
+    - 'spec'
+
 Metrics/MethodLength:
   Max: 64
