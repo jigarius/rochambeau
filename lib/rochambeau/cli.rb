@@ -15,16 +15,17 @@ class Rochambeau
     ##
     # Entry-point.
     def main
-      @choice = nil
-      while @choice.nil?
+      initial = T.let('', String)
+      while initial.empty?
         initial = input 'Rock (r), Paper (p) or Scissors (s)?'
         begin
-          @choice = Rochambeau::Option.from_initial initial
+          initial = '' unless Rochambeau::Option.from_initial initial
         rescue Rochambeau::InvalidOptionError
-          puts "It's simple! Type r or p or s and press ENTER." if @choice.nil?
+          puts "It's simple! Type r or p or s and press ENTER." if initial == ''
         end
       end
 
+      @choice = Rochambeau::Option.from_initial initial
       @random = Rochambeau::Option.random
 
       puts "Bot: #{@random.value}"
