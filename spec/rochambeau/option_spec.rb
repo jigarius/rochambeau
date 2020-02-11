@@ -16,7 +16,7 @@ describe Rochambeau::Option do
     expect(Rochambeau::Option.from_initial('r').value).to eql 'rock'
     expect(Rochambeau::Option.from_initial('p').value).to eql 'paper'
     expect(Rochambeau::Option.from_initial('s').value).to eql 'scissors'
-    expect { Rochambeau::Option.new('f') }.to raise_exception "Invalid initial 'f'."
+    expect { Rochambeau::Option.from_initial('f') }.to raise_exception "Invalid initial 'f'."
   end
 
   it 'tests ::valid?' do
