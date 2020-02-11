@@ -1,34 +1,37 @@
+# typed: true
 # frozen_string_literal: true
+
+require_relative '../rochambeau'
+require_relative '../rochambeau/option'
+
+require 'sorbet-runtime'
 
 class Rochambeau
   ##
   # Rochambeau command-line interface.
   class Cli
-    ##
-    # Rock-Paper-Scissors options.
-    OPTIONS = {
-      r: Rochambeau::ROCK,
-      p: Rochambeau::PAPER,
-      s: Rochambeau::SCISSORS
-    }.freeze
+    extend T::Sig
 
     ##
     # Entry-point.
     def main
       @choice = nil
       while @choice.nil?
-        letter = input 'Rock (r), Paper (p) or Scissors (s)?'
-        @choice = rpc_to_choice letter
-        puts "It's simple! Type r or p or s and press ENTER." if @choice.nil?
+        initial = input 'Rock (r), Paper (p) or Scissors (s)?'
+        begin
+          @choice = Rochambeau::Option.from_initial initial
+        rescue Rochambeau::InvalidOptionError => e
+          puts "It's simple! Type r or p or s and press ENTER." if @choice.nil?
+        end
       end
 
-      @random = random_choice
+      @random = Rochambeau::Option.random
 
-      puts "Bot: #{@random.upcase}"
-      puts "You: #{@choice.upcase}"
+      puts "Bot: #{@random.value}"
+      puts "You: #{@choice.value}"
 
       # Determine results.
-      outcome = Rochambeau.compare @choice, @random
+      outcome = Rochambeau::Option.compare @choice, @random
       if outcome.positive?
         puts 'Yo! You won!'
       elsif outcome.negative?
@@ -36,24 +39,6 @@ class Rochambeau
       else
         puts 'Match draw.'
       end
-    end
-
-    def rpc_to_choice(letter)
-      letter = letter.to_sym
-      OPTIONS[letter] if OPTIONS.key? letter
-    end
-
-    ##
-    # Rock Paper Scissors?
-    #
-    # @return [String]
-    #   Random "rock", "paper" or "scissors".
-    def random_choice
-      [
-        Rochambeau::ROCK,
-        Rochambeau::PAPER,
-        Rochambeau::SCISSORS
-      ].sample
     end
 
     ##
