@@ -15,17 +15,18 @@ class Rochambeau
     ##
     # Entry-point.
     def main
-      initial = T.let('', String)
-      while initial.empty?
+      # Determine user's choice.
+      @choice = T.let(nil, T.nilable(Rochambeau::Option))
+      while @choice.nil?
         initial = input 'Rock (r), Paper (p) or Scissors (s)?'
         begin
-          initial = '' unless Rochambeau::Option.from_initial initial
+          @choice = Rochambeau::Option.from_initial initial
         rescue Rochambeau::InvalidOptionError
-          puts "It's simple! Type r or p or s and press ENTER." if initial == ''
+          puts "It's simple! Type r or p or s and press ENTER." if @choice.nil?
         end
       end
 
-      @choice = Rochambeau::Option.from_initial initial
+      # Generate CPU choice.
       @random = Rochambeau::Option.random
 
       puts "Bot: #{@random.value}"
