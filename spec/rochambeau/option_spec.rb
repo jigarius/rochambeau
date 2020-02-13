@@ -25,6 +25,12 @@ describe Rochambeau::Option do
     expect(Rochambeau::Option::SCISSORS.initial).to eql 's'
   end
 
+  it 'tests ::label' do
+    expect(Rochambeau::Option::ROCK.label).to eql 'Rock (r)'
+    expect(Rochambeau::Option::PAPER.label).to eql 'Paper (p)'
+    expect(Rochambeau::Option::SCISSORS.label).to eql 'Scissors (s)'
+  end
+
   it 'tests ::compare' do
     rock = Rochambeau::Option::ROCK
     paper = Rochambeau::Option::PAPER

@@ -16,22 +16,11 @@ class Rochambeau
     # Entry-point.
     sig { void }
     def main
-      # Determine user's choice.
-      choice = T.let(nil, T.nilable(Rochambeau::Option))
-      while choice.nil?
-        initial = input 'Rock (r), Paper (p) or Scissors (s)?'
-        begin
-          choice = Rochambeau::Option.from_initial initial
-        rescue Rochambeau::InvalidOptionError
-          puts "It's simple! Type r or p or s and press ENTER." if choice.nil?
-        end
-      end
-
-      # Generate CPU choice.
+      choice = input_choice
       random = Rochambeau::Option.random
 
-      puts "Bot: #{random.to_s}"
-      puts "You: #{choice.to_s}"
+      puts "Bot: #{random}"
+      puts "You: #{choice}"
 
       # Determine results.
       outcome = Rochambeau::Option.compare choice, random
@@ -42,6 +31,35 @@ class Rochambeau
       else
         puts 'Match draw.'
       end
+    end
+
+    ##
+    # Gets the user's choice.
+    sig { returns(Rochambeau::Option) }
+    def input_choice
+      # Generate message from available options.
+      message = ''
+      options = Rochambeau::Option.values
+      options.each_with_index do |option, index|
+        glue = ', '
+        case index
+        when options.length - 1 then glue = ''
+        when options.length - 2 then glue = ' or '
+        end
+        message += "#{option.label}#{glue}"
+      end
+
+      choice = T.let(nil, T.nilable(Rochambeau::Option))
+      while choice.nil?
+        initial = input message
+        begin
+          choice = Rochambeau::Option.from_initial initial
+        rescue Rochambeau::InvalidOptionError
+          puts "That doesn't look right. Try again." if choice.nil?
+        end
+      end
+
+      choice
     end
 
     ##
