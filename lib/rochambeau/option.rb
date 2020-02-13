@@ -1,120 +1,82 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
 
 class Rochambeau
-  ##
-  # Rochambeau command-line interface.
-  class Option
+  class Option < T::Enum
     extend T::Sig
 
-    attr_reader :value
-
     ##
-    # Rock.
-    ROCK = 'rock'
-
-    ##
-    # Paper.
-    PAPER = 'paper'
-
-    ##
-    # Scissors.
-    SCISSORS = 'scissors'
-
-    ##
-    # Creates an Option object.
-    #
-    # @param [String] value
-    #   Value of the option. One of ROCK, PAPER, SCISSORS.
-    def initialize(value)
-      value = value.downcase
-      unless self.class.valid?(value)
-        raise Rochambeau::InvalidOptionError, "Invalid value '#{value}'."
-      end
-
-      @value = value
+    # Generates values for each available option.
+    enums do
+      ROCK = new
+      PAPER = new
+      SCISSORS = new
     end
 
-    ##
-    # Returns an initial for the option.
-    #
-    # @return [String]
-    #   One of r, p, s.
+    sig { returns(String) }
+    def to_s
+      case self
+      when ROCK then 'rock'
+      when PAPER then 'paper'
+      when SCISSORS then 'scissors'
+      else
+        # If a new option is introduced in the future, Sorbet remind us to
+        # add to handle the new option in the "case" statement.
+        T.absurd(self)
+      end
+    end
+
+    sig { returns(String) }
     def initial
-      @value[0]
+      T.cast(to_s[0], String)
     end
 
-    ##
-    # Creates an Option from option initial.
-    #
-    # @param [String] initial
-    #   An option initial, e.g. r, p, s.
-    def self.from_initial(initial)
-      case initial.downcase
-      when 'r' then value = ROCK
-      when 'p' then value = PAPER
-      when 's' then value = SCISSORS
+    class << self
+      extend(T::Sig)
+
+      ##
+      # Compares 2 Rochambeau options.
+      #
+      # Returns 1 when option1 > option2
+      # Returns 0 when option1 = option2
+      # Returns -1 when option1 < option2
+      sig do
+        params(
+          option1: Rochambeau::Option,
+          option2: Rochambeau::Option
+        ).returns(Integer)
+      end
+      def compare(option1, option2)
+        case [option1, option2]
+        when [ROCK, PAPER] then -1
+        when [PAPER, ROCK] then 1
+        when [PAPER, SCISSORS] then -1
+        when [SCISSORS, PAPER] then 1
+        when [SCISSORS, ROCK] then -1
+        when [ROCK, SCISSORS] then 1
+        else 0
+        end
       end
 
-      if value.nil?
-        raise Rochambeau::InvalidOptionError, "Invalid initial '#{initial}'."
+      ##
+      # Creates an Option object from it's initial.
+      sig { params(initial: String).returns(Option) }
+      def from_initial(initial)
+        case initial.downcase
+        when 'r' then ROCK
+        when 'p' then PAPER
+        when 's' then SCISSORS
+        else
+          raise Rochambeau::InvalidOptionError, "Invalid initial '#{initial}'."
+        end
       end
 
-      new value
-    end
-
-    ##
-    # Get rock-paper-scissors options.
-    #
-    # @return [Array]
-    #   An array containing Rock-Paper-Scissors options.
-    def self.options
-      [ROCK, PAPER, SCISSORS]
-    end
-
-    ##
-    # Rock Paper Scissors?
-    #
-    # @return [String]
-    #   Random "rock", "paper" or "scissors".
-    def self.random
-      new options.sample
-    end
-
-    ##
-    # Checks if the option is a valid Rock-Paper-Scissors option.
-    #
-    # @param [String] option
-    #   An option to validate.
-    #
-    # @return [Boolean]
-    #   True if the option is "rock", "paper" or "scissors". False otherwise.
-    def self.valid?(option)
-      options.include? option
-    end
-
-    ##
-    # Compares 2 options.
-    #
-    # @param [Rochambeau::Option] option1
-    #   Item 1.
-    # @param [Rochambeau::Option] option2
-    #   Item 2.
-    #
-    # @return [Integer]
-    #   if option1 < option2 then -1
-    #   if option1 = option2 then 0
-    #   if option1 > option2 then +1
-    def self.compare(option1, option2)
-      # If both items are the same.
-      return 0 if option1.value == option2.value
-
-      # Compare the items.
-      return option2.value == PAPER ? -1 : 1 if option1.value == ROCK
-      return option2.value == SCISSORS ? -1 : 1 if option1.value == PAPER
-      return option2.value == ROCK ? -1 : 1 if option1.value == SCISSORS
+      sig { returns(Option) }
+      def random
+        T.cast(values.sample, Option)
+      end
     end
   end
 end
