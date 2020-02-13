@@ -4,6 +4,8 @@
 require 'sorbet-runtime'
 
 class Rochambeau
+  ##
+  # Rochambeau Option.
   class Option < T::Enum
     extend T::Sig
 
@@ -31,6 +33,11 @@ class Rochambeau
     sig { returns(String) }
     def initial
       T.cast(to_s[0], String)
+    end
+
+    sig { returns(String) }
+    def label
+      "#{to_s.capitalize} (#{initial})"
     end
 
     class << self
