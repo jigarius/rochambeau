@@ -5,42 +5,30 @@ require_relative '../../lib/rochambeau/option'
 
 describe Rochambeau::Option do
   it 'tests ::initialize' do
-    expect(Rochambeau::Option.new('rock').value).to eql 'rock'
-    expect(Rochambeau::Option.new('paper').value).to eql 'paper'
-    expect(Rochambeau::Option.new('scissors').value).to eql 'scissors'
+    expect(Rochambeau::Option::ROCK.to_s).to eql 'rock'
+    expect(Rochambeau::Option::PAPER.to_s).to eql 'paper'
+    expect(Rochambeau::Option::SCISSORS.to_s).to eql 'scissors'
     expect { Rochambeau::Option.new('fork') }
-      .to raise_exception "Invalid value 'fork'."
+      .to raise_exception RuntimeError
   end
 
   it 'tests ::from_initial' do
-    expect(Rochambeau::Option.from_initial('r').value).to eql 'rock'
-    expect(Rochambeau::Option.from_initial('p').value).to eql 'paper'
-    expect(Rochambeau::Option.from_initial('s').value).to eql 'scissors'
+    expect(Rochambeau::Option.from_initial('r').to_s).to eql 'rock'
+    expect(Rochambeau::Option.from_initial('p').to_s).to eql 'paper'
+    expect(Rochambeau::Option.from_initial('s').to_s).to eql 'scissors'
     expect { Rochambeau::Option.from_initial('f') }.to raise_exception "Invalid initial 'f'."
   end
 
-  it 'tests ::valid?' do
-    expect(Rochambeau::Option.valid?('rock')).to be true
-    expect(Rochambeau::Option.valid?('paper')).to be true
-    expect(Rochambeau::Option.valid?('scissors')).to be true
-    expect(Rochambeau::Option.valid?('fork')).to be false
-  end
-
   it 'tests ::initial' do
-    option_rock = Rochambeau::Option.new 'rock'
-    expect(option_rock.initial).to eql 'r'
-
-    option_paper = Rochambeau::Option.new 'paper'
-    expect(option_paper.initial).to eql 'p'
-
-    option_scissors = Rochambeau::Option.new 'scissors'
-    expect(option_scissors.initial).to eql 's'
+    expect(Rochambeau::Option::ROCK.initial).to eql 'r'
+    expect(Rochambeau::Option::PAPER.initial).to eql 'p'
+    expect(Rochambeau::Option::SCISSORS.initial).to eql 's'
   end
 
   it 'tests ::compare' do
-    rock = Rochambeau::Option.new 'rock'
-    paper = Rochambeau::Option.new 'paper'
-    scissors = Rochambeau::Option.new 'scissors'
+    rock = Rochambeau::Option::ROCK
+    paper = Rochambeau::Option::PAPER
+    scissors = Rochambeau::Option::SCISSORS
 
     # Test rock beats scissors.
     result = Rochambeau::Option.compare(rock, scissors)
