@@ -7,5 +7,9 @@
 require_relative 'lib/rochambeau/cli'
 require 'pry-byebug'
 
-cli = Rochambeau::Cli.new
-cli.main
+begin
+  cli = Rochambeau::Cli.new
+  cli.main
+rescue Interrupt
+  # Noop.
+end
