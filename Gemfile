@@ -12,5 +12,5 @@ gem 'sorbet', group: :development
 gem 'sorbet-runtime'
 
 # Pry
-gem 'pry', '~> 1.1.0', group: :development
+gem 'pry', group: :development
 gem 'pry-byebug', group: :development

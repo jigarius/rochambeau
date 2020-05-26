@@ -3,6 +3,7 @@
 
 # Bundle files.
 .bundle
+Gemfile.lock
 
 # Sorbet.
 sorbet/rbi/hidden-definitions/errors.txt
