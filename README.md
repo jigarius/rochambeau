@@ -1,6 +1,6 @@
 # Rochambeau
 
-[![Build Status](https://travis-ci.com/jigarius/rochambeau.svg?branch=master)](https://travis-ci.com/jigarius/rochambeau)
+[![Build Status](https://travis-ci.com/jigarius/rochambeau.svg?branch=main)](https://travis-ci.com/jigarius/rochambeau)
 
 The game of Rock-Paper-Scissors: Command-line Edition.
 
