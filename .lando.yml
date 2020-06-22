@@ -1,0 +1,13 @@
+name: rochambeau
+services:
+  app:
+    type: ruby:2.6
+    command: tail -f /dev/null
+    build:
+      - gem install bundle
+      - bundle install
+tooling:
+  rspec:
+    service: app
+    description: Executes rspec to run tests.
+    cmd: 'rspec'
