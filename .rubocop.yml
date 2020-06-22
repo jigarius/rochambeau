@@ -1,3 +1,6 @@
+AllCops:
+  NewCops: enable
+
 # Allow substantially complicated code.
 Metrics/AbcSize:
   Enabled: false
@@ -13,7 +16,7 @@ Metrics/BlockLength:
   Exclude:
     - './spec/**/*.rb'
 
-Metrics/LineLength:
+Layout/LineLength:
   Exclude:
     - './spec/**/*.rb'
 
