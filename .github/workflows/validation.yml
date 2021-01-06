@@ -1,0 +1,28 @@
+name: validation
+on:
+  - push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+      - name: Prepare
+        run: bundle install
+      - name: Lint
+        run: bundle exec rubocop
+      - name: Type-check
+        run: bundle exec srb tc
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+      - name: Prepare
+        run: bundle install
+      - name: Test
+        run: bundle exec rspec
