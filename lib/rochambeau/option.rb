@@ -2,40 +2,42 @@
 # frozen_string_literal: true
 
 class Rochambeau
-  class Option < T::Enum
+  class Option
     extend T::Sig
 
-    enums do
-      ROCK = new
-      PAPER = new
-      SCISSORS = new
+    sig { returns(String) }
+    attr_reader :initial, :name
+
+    private_class_method :new
+
+    sig { params(initial: String, name: String).void }
+    def initialize(initial, name)
+      @initial = initial
+      @name = name
     end
+
+    ROCK = new('r', 'rock')
+    PAPER = new('p', 'paper')
+    SCISSORS = new('s', 'scissors')
 
     sig { returns(String) }
     def to_s
-      case self
-      when ROCK then 'rock'
-      when PAPER then 'paper'
-      when SCISSORS then 'scissors'
-      else
-        # If a new option is introduced in the future, Sorbet remind us to
-        # add to handle the new option in the "case" statement.
-        T.absurd(self)
-      end
-    end
-
-    sig { returns(String) }
-    def initial
-      T.cast(to_s[0], String)
+      @name
     end
 
     sig { returns(String) }
     def label
-      "#{to_s.capitalize} (#{initial})"
+      "#{@name.capitalize} (#{@initial})"
     end
 
     class << self
       extend(T::Sig)
+
+      # TODO: Maybe use a constant?
+      sig { returns(T::Array[Option]) }
+      def values
+        [ROCK, PAPER, SCISSORS]
+      end
 
       ##
       # Compares 2 Rochambeau options.
@@ -59,13 +61,10 @@ class Rochambeau
 
       sig { params(initial: String).returns(Option) }
       def from_initial(initial)
-        case initial.downcase
-        when 'r' then ROCK
-        when 'p' then PAPER
-        when 's' then SCISSORS
-        else
-          raise Rochambeau::InvalidOptionError, "Invalid initial '#{initial}'."
-        end
+        result = values.detect { |o| o.initial == initial }
+        return result if result
+
+        raise Rochambeau::InvalidOptionError, "Invalid initial '#{initial}'."
       end
 
       sig { returns(Option) }
