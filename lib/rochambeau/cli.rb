@@ -36,7 +36,7 @@ class Rochambeau
     def input_choice
       # Generate message from available options.
       message = ''
-      options = Rochambeau::Option.values
+      options = Rochambeau::Option.values(Option::GROUP_BASIC)
       options.each_with_index do |option, index|
         glue = ', '
         case index

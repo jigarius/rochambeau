@@ -5,6 +5,37 @@ require 'rochambeau/option'
 
 class Rochambeau
   describe Option do
+    it '.values returns all options without arguments' do
+      expected = [
+        Option::ROCK,
+        Option::PAPER,
+        Option::SCISSORS,
+        Option::LIZARD,
+        Option::SPOCK,
+      ]
+      expect(Option.values).to eq(expected)
+    end
+
+    it '.values returns all options for GROUP_ADVANCED' do
+      expected = [
+        Option::ROCK,
+        Option::PAPER,
+        Option::SCISSORS,
+        Option::LIZARD,
+        Option::SPOCK,
+      ]
+      expect(Option.values(Option::GROUP_ADVANCED)).to eq(expected)
+    end
+
+    it '.values returns all options for GROUP_BASIC' do
+      expected = [
+        Option::ROCK,
+        Option::PAPER,
+        Option::SCISSORS,
+      ]
+      expect(Option.values(Option::GROUP_BASIC)).to eq(expected)
+    end
+
     it 'can be converted to string' do
       Rochambeau::Option.values.each do |option|
         expect(option.to_s).to eql option.name

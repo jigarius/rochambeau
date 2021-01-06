@@ -19,6 +19,11 @@ class Rochambeau
     ROCK = T.let(new('r', 'rock'), Option)
     PAPER = T.let(new('p', 'paper'), Option)
     SCISSORS = T.let(new('s', 'scissors'), Option)
+    LIZARD = T.let(new('l', 'lizard'), Option)
+    SPOCK = T.let(new('v', 'spock'), Option)
+
+    GROUP_BASIC = 'b'
+    GROUP_ADVANCED = 'a'
 
     sig { params(other: Option).returns(Integer) }
     def <=>(other)
@@ -46,9 +51,19 @@ class Rochambeau
       extend(T::Sig)
 
       # TODO: Maybe use a constant?
-      sig { returns(T::Array[Option]) }
-      def values
-        [ROCK, PAPER, SCISSORS]
+      sig do
+        params(group: String)
+          .returns(T::Array[Option])
+      end
+      def values(group = GROUP_ADVANCED)
+        case group
+        when GROUP_BASIC
+          [ROCK, PAPER, SCISSORS]
+        when GROUP_ADVANCED
+          [ROCK, PAPER, SCISSORS, LIZARD, SPOCK]
+        else
+          T.absurd(group)
+        end
       end
 
       sig do
