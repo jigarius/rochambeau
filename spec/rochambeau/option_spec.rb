@@ -57,5 +57,20 @@ class Rochambeau
       option = Rochambeau::Option.random
       expect(option).to be_instance_of Rochambeau::Option
     end
+
+    it '.explain explains option comparisons' do
+      rock = Rochambeau::Option::ROCK
+      paper = Rochambeau::Option::PAPER
+      scissors = Rochambeau::Option::SCISSORS
+
+      expect(Option.explain(rock, paper)).to eq('Paper covers rock.')
+      expect(Option.explain(paper, rock)).to eq('Paper covers rock.')
+
+      expect(Option.explain(paper, scissors)).to eq('Scissors cut paper.')
+      expect(Option.explain(scissors, paper)).to eq('Scissors cut paper.')
+
+      expect(Option.explain(scissors, rock)).to eq('Rock crushes scissors.')
+      expect(Option.explain(rock, scissors)).to eq('Rock crushes scissors.')
+    end
   end
 end

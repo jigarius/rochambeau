@@ -15,13 +15,16 @@ class Rochambeau
 
       puts "Bot: #{random}"
       puts "You: #{choice}"
+      puts '------'
 
-      # Determine results.
+      puts Option.explain(choice, random) unless random == choice
+
       case choice <=> random
       when 1
-        puts 'Yo! You won!'
+        puts 'You won!'
       when -1
-        puts 'Yo! Bot won! Better luck next time.'
+        puts 'Bot won!'
+        puts 'Better luck next time.'
       else
         puts 'Match draw.'
       end

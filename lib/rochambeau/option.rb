@@ -51,6 +51,23 @@ class Rochambeau
         [ROCK, PAPER, SCISSORS]
       end
 
+      sig do
+        params(option1: Option, option2: Option)
+          .returns(T.nilable(String))
+      end
+      def explain(option1, option2)
+        return if option1 == option2
+
+        case [option1, option2]
+        when [ROCK, PAPER], [PAPER, ROCK]
+          'Paper covers rock.'
+        when [PAPER, SCISSORS], [SCISSORS, PAPER]
+          'Scissors cut paper.'
+        when [SCISSORS, ROCK], [ROCK, SCISSORS]
+          'Rock crushes scissors.'
+        end
+      end
+
       sig { params(initial: String).returns(Option) }
       def from_initial(initial)
         result = values.detect { |o| o.initial == initial }
