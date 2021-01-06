@@ -1,11 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'sorbet-runtime'
-
 class Rochambeau
-  ##
-  # Rochambeau Option.
   class Option < T::Enum
     extend T::Sig
 
@@ -57,12 +53,8 @@ class Rochambeau
       end
       def compare(option1, option2)
         case [option1, option2]
-        when [ROCK, PAPER] then -1
-        when [PAPER, ROCK] then 1
-        when [PAPER, SCISSORS] then -1
-        when [SCISSORS, PAPER] then 1
-        when [SCISSORS, ROCK] then -1
-        when [ROCK, SCISSORS] then 1
+        when [ROCK, PAPER], [PAPER, SCISSORS], [SCISSORS, ROCK] then -1
+        when [PAPER, ROCK], [SCISSORS, PAPER], [ROCK, SCISSORS] then 1
         else 0
         end
       end

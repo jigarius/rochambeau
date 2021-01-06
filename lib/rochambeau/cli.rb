@@ -4,11 +4,7 @@
 require_relative '../rochambeau'
 require_relative '../rochambeau/option'
 
-require 'sorbet-runtime'
-
 class Rochambeau
-  ##
-  # Rochambeau command-line interface.
   class Cli
     extend T::Sig
 
@@ -69,7 +65,7 @@ class Rochambeau
     #   A message for the user. Ex: Who are you?
     sig { params(message: String).returns(String) }
     def input(message)
-      puts message + "\n" unless message.nil?
+      puts "#{message}\n" unless message.nil?
       gets.chomp
     end
   end

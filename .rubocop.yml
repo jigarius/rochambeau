@@ -1,5 +1,6 @@
 AllCops:
   NewCops: enable
+  SuggestExtensions: false
 
 # Allow substantially complicated code.
 Metrics/AbcSize:
@@ -16,3 +17,8 @@ Metrics/MethodLength:
 Layout/LineLength:
   Exclude:
     - './spec/**/*.rb'
+
+Style/Documentation:
+  Enabled: false
+Style/SymbolArray:
+  EnforcedStyle: brackets

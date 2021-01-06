@@ -1,10 +1,6 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'sorbet-runtime'
-
-##
-# Rock-Paper-Scissors Class.
 class Rochambeau
   extend T::Sig
 
