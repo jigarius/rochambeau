@@ -4,21 +4,15 @@ AllCops:
 # Allow substantially complicated code.
 Metrics/AbcSize:
   Enabled: false
-
+Metrics/BlockLength:
+  Enabled: false
 Metrics/CyclomaticComplexity:
   Enabled: false
-
 Metrics/PerceivedComplexity:
   Enabled: false
-
-Metrics/BlockLength:
-  Max: 64
-  Exclude:
-    - './spec/**/*.rb'
+Metrics/MethodLength:
+  Enabled: false
 
 Layout/LineLength:
   Exclude:
     - './spec/**/*.rb'
-
-Metrics/MethodLength:
-  Max: 64
