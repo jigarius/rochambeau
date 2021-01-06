@@ -17,10 +17,10 @@ class Rochambeau
       puts "You: #{choice}"
 
       # Determine results.
-      outcome = Rochambeau::Option.compare choice, random
-      if outcome.positive?
+      case choice <=> random
+      when 1
         puts 'Yo! You won!'
-      elsif outcome.negative?
+      when -1
         puts 'Yo! Bot won! Better luck next time.'
       else
         puts 'Match draw.'

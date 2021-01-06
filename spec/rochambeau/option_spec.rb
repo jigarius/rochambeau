@@ -34,22 +34,23 @@ class Rochambeau
       expect(Rochambeau::Option::SCISSORS.label).to eql 'Scissors (s)'
     end
 
-    it 'compares options correctly' do
+    it '<=> compares options' do
       rock = Rochambeau::Option::ROCK
       paper = Rochambeau::Option::PAPER
       scissors = Rochambeau::Option::SCISSORS
 
-      # Test rock beats scissors.
-      result = Rochambeau::Option.compare(rock, scissors)
-      expect(result).to be > 0
+      expect(rock <=> rock).to be(0)
+      expect(paper <=> paper).to be(0)
+      expect(scissors <=> scissors).to be(0)
 
-      # Test scissors beat paper.
-      result = Rochambeau::Option.compare(scissors, paper)
-      expect(result).to be > 0
+      expect(rock <=> scissors).to be(1)
+      expect(scissors <=> rock).to be(-1)
 
-      # Test paper beats rock.
-      result = Rochambeau::Option.compare(paper, rock)
-      expect(result).to be > 0
+      expect(paper <=> scissors).to be(-1)
+      expect(scissors <=> paper).to be(1)
+
+      expect(paper <=> rock).to be(1)
+      expect(rock <=> paper).to be(-1)
     end
 
     it '.random returns random options' do

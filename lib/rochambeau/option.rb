@@ -20,6 +20,18 @@ class Rochambeau
     PAPER = new('p', 'paper')
     SCISSORS = new('s', 'scissors')
 
+    sig { params(other: Option).returns(Integer) }
+    def <=>(other)
+      return 0 if self == other
+
+      case [self, other]
+      when [ROCK, PAPER], [PAPER, SCISSORS], [SCISSORS, ROCK] then -1
+      when [PAPER, ROCK], [SCISSORS, PAPER], [ROCK, SCISSORS] then 1
+      else
+        raise StandardError, "Could not compare #{self} with #{other}"
+      end
+    end
+
     sig { returns(String) }
     def to_s
       @name
@@ -37,26 +49,6 @@ class Rochambeau
       sig { returns(T::Array[Option]) }
       def values
         [ROCK, PAPER, SCISSORS]
-      end
-
-      ##
-      # Compares 2 Rochambeau options.
-      #
-      # Returns 1 when option1 > option2
-      # Returns 0 when option1 = option2
-      # Returns -1 when option1 < option2
-      sig do
-        params(
-          option1: Rochambeau::Option,
-          option2: Rochambeau::Option
-        ).returns(Integer)
-      end
-      def compare(option1, option2)
-        case [option1, option2]
-        when [ROCK, PAPER], [PAPER, SCISSORS], [SCISSORS, ROCK] then -1
-        when [PAPER, ROCK], [SCISSORS, PAPER], [ROCK, SCISSORS] then 1
-        else 0
-        end
       end
 
       sig { params(initial: String).returns(Option) }

@@ -2,6 +2,10 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
 
+Lint/BinaryOperatorWithIdenticalOperands:
+  Exclude:
+    - spec/rochambeau/option_spec.rb
+
 # Allow substantially complicated code.
 Metrics/AbcSize:
   Enabled: false
