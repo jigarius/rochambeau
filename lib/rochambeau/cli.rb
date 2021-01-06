@@ -29,6 +29,8 @@ class Rochambeau
       end
     end
 
+    private
+
     ##
     # Gets the user's choice.
     sig { returns(Rochambeau::Option) }
