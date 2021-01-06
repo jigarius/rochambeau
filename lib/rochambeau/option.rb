@@ -16,9 +16,9 @@ class Rochambeau
       @name = name
     end
 
-    ROCK = new('r', 'rock')
-    PAPER = new('p', 'paper')
-    SCISSORS = new('s', 'scissors')
+    ROCK = T.let(new('r', 'rock'), Option)
+    PAPER = T.let(new('p', 'paper'), Option)
+    SCISSORS = T.let(new('s', 'scissors'), Option)
 
     sig { params(other: Option).returns(Integer) }
     def <=>(other)
