@@ -5,7 +5,6 @@
 # Rochambeau: Entry-point.
 
 require_relative 'lib/rochambeau/cli'
-require 'pry-byebug'
 
 begin
   cli = Rochambeau::Cli.new

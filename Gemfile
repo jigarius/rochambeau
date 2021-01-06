@@ -2,15 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '~> 2.6'
+ruby '~> 2.7'
 
-gem 'rspec'
-gem 'rubocop'
+gem 'rspec', group: [:development, :test]
+gem 'rubocop', group: [:development, :test]
 
 # Sorbet
-gem 'sorbet', group: :development
+gem 'sorbet', group: [:development, :test]
 gem 'sorbet-runtime'
 
 # Pry
 gem 'pry', group: :development
-gem 'pry-byebug', group: :development
