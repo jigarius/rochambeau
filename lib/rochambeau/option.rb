@@ -5,8 +5,6 @@ class Rochambeau
   class Option < T::Enum
     extend T::Sig
 
-    ##
-    # Generates values for each available option.
     enums do
       ROCK = new
       PAPER = new
@@ -59,8 +57,6 @@ class Rochambeau
         end
       end
 
-      ##
-      # Creates an Option object from it's initial.
       sig { params(initial: String).returns(Option) }
       def from_initial(initial)
         case initial.downcase

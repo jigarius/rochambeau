@@ -8,8 +8,6 @@ class Rochambeau
   class Cli
     extend T::Sig
 
-    ##
-    # Entry-point.
     sig { void }
     def main
       choice = input_choice
@@ -31,8 +29,6 @@ class Rochambeau
 
     private
 
-    ##
-    # Gets the user's choice.
     sig { returns(Rochambeau::Option) }
     def input_choice
       # Generate message from available options.
@@ -60,11 +56,6 @@ class Rochambeau
       choice
     end
 
-    ##
-    # Gets user input from the console.
-    #
-    # @param [String] message
-    #   A message for the user. Ex: Who are you?
     sig { params(message: String).returns(String) }
     def input(message)
       puts "#{message}\n" unless message.nil?
