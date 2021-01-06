@@ -13,3 +13,6 @@ gem 'sorbet-runtime'
 
 # Pry
 gem 'pry', group: :development
+
+# Thor: CLI app helper.
+gem 'thor', '~> 1.0', '>= 1.0.1'
