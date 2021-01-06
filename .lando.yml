@@ -1,13 +1,34 @@
 name: rochambeau
 services:
-  app:
-    type: ruby:2.6
-    command: tail -f /dev/null
+  appserver:
+    type: compose
+    services:
+      image: ruby:2.7
+      command: tail -f /dev/null
     build:
-      - gem install bundle
-      - bundle install
+      - bundle install --gemfile=/app/Gemfile
+      - chmod +x bin/rochambeau
 tooling:
+  rochambeau:
+    service: appserver
+    cmd: bin/rochambeau
+    dir: /app
+  irb:
+    service: appserver
+    cmd: irb
+  bundle:
+    service: appserver
+    cmd: bundle
+    dir: /app
   rspec:
-    service: app
-    description: Executes rspec to run tests.
-    cmd: 'rspec'
+    service: appserver
+    cmd: bundle exec rspec
+    dir: /app
+  rubocop:
+    service: appserver
+    cmd: bundle exec rubocop
+    dir: /app
+  srb:
+    service: appserver
+    cmd: bundle exec srb
+    dir: /app
