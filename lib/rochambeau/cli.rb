@@ -3,15 +3,21 @@
 
 require_relative '../rochambeau'
 require_relative '../rochambeau/option'
+require_relative '../rochambeau/game_mode'
 
 class Rochambeau
   class Cli
     extend T::Sig
 
+    sig { params(game_mode: GameMode).void }
+    def initialize(game_mode = GameMode::BASIC)
+      @game_mode = T.let(game_mode, GameMode)
+    end
+
     sig { void }
     def main
       choice = input_choice
-      random = Rochambeau::Option.random
+      random = random_option
 
       puts "Bot: #{random}"
       puts "You: #{choice}"
@@ -21,9 +27,9 @@ class Rochambeau
 
       case choice <=> random
       when 1
-        puts 'You won!'
+        puts 'You won (:'
       when -1
-        puts 'Bot won!'
+        puts 'Bot won :('
         puts 'Better luck next time.'
       else
         puts 'Match draw.'
@@ -32,11 +38,18 @@ class Rochambeau
 
     private
 
+    sig { returns(Option) }
+    def random_option
+      # TODO: Remove T.cast
+      #   See https://github.com/sorbet/sorbet/issues/3870
+      T.cast(@game_mode.options.sample, Option)
+    end
+
     sig { returns(Rochambeau::Option) }
     def input_choice
-      # Generate message from available options.
       message = ''
-      options = Rochambeau::Option.values(Option::GROUP_BASIC)
+      options = @game_mode.options
+
       options.each_with_index do |option, index|
         glue = ', '
         case index
