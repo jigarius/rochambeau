@@ -26,3 +26,6 @@ Style/Documentation:
   Enabled: false
 Style/SymbolArray:
   EnforcedStyle: brackets
+Style/HashEachMethods:
+  Exclude:
+    - spec/rochambeau/option_spec.rb
