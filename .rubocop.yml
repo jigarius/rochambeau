@@ -2,14 +2,27 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
 
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+Layout/LineLength:
+  Exclude:
+    - './spec/**/*.rb'
+
 Lint/BinaryOperatorWithIdenticalOperands:
   Exclude:
     - spec/rochambeau/option_spec.rb
+Lint/DuplicateBranch:
+  Exclude:
+    - lib/rochambeau/option.rb
 
 # Allow substantially complicated code.
 Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
+  Enabled: false
+Metrics/ClassLength:
   Enabled: false
 Metrics/CyclomaticComplexity:
   Enabled: false
@@ -18,10 +31,6 @@ Metrics/PerceivedComplexity:
 Metrics/MethodLength:
   Enabled: false
 
-Layout/LineLength:
-  Exclude:
-    - './spec/**/*.rb'
-
 Style/Documentation:
   Enabled: false
 Style/SymbolArray:
@@ -29,3 +38,5 @@ Style/SymbolArray:
 Style/HashEachMethods:
   Exclude:
     - spec/rochambeau/option_spec.rb
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
