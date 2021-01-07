@@ -4,7 +4,7 @@
 class Rochambeau
   extend T::Sig
 
-  VERSION = '1.2'
+  VERSION = '1.9'
 
   class InvalidOptionError < StandardError
   end
