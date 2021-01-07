@@ -1,6 +1,7 @@
 # Rochambeau
 
-The game of Rock-Paper-Scissors: Command-line Edition.
+[Rock-Paper-Scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors):
+Command-line Edition · By [Jigarius](https://jigarius.com/).
 
 ## Installation
 
