@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require 'thor'
@@ -28,6 +28,8 @@ class Rochambeau
            desc: 'Advanced mode contains the options "Lizard" and "Spock".'
     sig { void }
     def play
+      system 'clear'
+
       game_mode =
         options.advanced ? GameMode::ADVANCED : GameMode::BASIC
 
@@ -57,8 +59,8 @@ class Rochambeau
     private
 
     no_commands do
-      sig { params(game_mode: GameMode).returns(Rochambeau::Option) }
       def input_choice(game_mode)
+        T.cast(game_mode, GameMode)
         puts game_mode.options.map(&:label).join(' · ')
         chosen_initial = ask('Make a choice', {
           limited_to: game_mode.options.map(&:initial)
