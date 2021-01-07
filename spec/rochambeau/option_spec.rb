@@ -14,7 +14,7 @@ class Rochambeau
       expect(Option::ALL.length).to eq(5)
     end
 
-    it 'can be converted to string' do
+    it '.to_s returns name' do
       Rochambeau::Option::ALL.each do |option|
         expect(option.to_s).to eql option.name
       end
