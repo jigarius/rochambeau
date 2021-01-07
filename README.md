@@ -10,4 +10,10 @@ Command-line Edition · By [Jigarius](https://jigarius.com/).
 
 ## Usage
 
-To play the game, simply execute `./bin/rochambeau` and follow the instructions.
+The game is in the executable `./bin/rochambeau`.
+
+  * Run `rochambeau` to play.
+    * Add the `--advanced` flag for _Lizard_ and _Spock_.
+  * Run `rochambeau help` for help.
+
+Additionally, you can browse through and appreciate the code. 
