@@ -7,7 +7,7 @@ services:
       command: tail -f /dev/null
     build:
       - bundle install --gemfile=/app/Gemfile
-      - chmod +x bin/rochambeau
+      - chmod +x /app/bin/rochambeau
 tooling:
   rochambeau:
     service: appserver
