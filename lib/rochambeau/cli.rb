@@ -11,6 +11,15 @@ class Rochambeau
   class Cli < Thor
     extend T::Sig
 
+    desc 'version', 'Display version information.'
+    sig { void }
+    def version
+      puts <<~VERSION
+        Rochambeau #{Rochambeau::VERSION}
+        GitHub: https://github.com/jigarius/rochambeau
+      VERSION
+    end
+
     desc 'play', 'Play Rock-Paper-Scissors.'
     option 'advanced',
            aliases: ['a'],
