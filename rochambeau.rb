@@ -8,8 +8,7 @@ require 'sorbet-runtime'
 require_relative 'lib/rochambeau/cli'
 
 begin
-  cli = Rochambeau::Cli.new
-  cli.main
+  Rochambeau::Cli.start(ARGV)
 rescue Interrupt
-  # Noop.
+  # No op.
 end

@@ -1,24 +1,31 @@
 # typed: strict
 # frozen_string_literal: true
 
+require 'thor'
+
 require_relative '../rochambeau'
 require_relative '../rochambeau/option'
 require_relative '../rochambeau/game_mode'
 
 class Rochambeau
-  class Cli
+  class Cli < Thor
     extend T::Sig
 
-    sig { params(game_mode: GameMode).void }
-    def initialize(game_mode = GameMode::BASIC)
-      @game_mode = T.let(game_mode, GameMode)
-    end
-
+    desc 'play', 'Play Rock-Paper-Scissors.'
+    option 'advanced',
+           aliases: ['a'],
+           type: :boolean,
+           default: false,
+           desc: 'Advanced mode contains the options "Lizard" and "Spock".'
     sig { void }
-    def main
-      choice = input_choice
-      random = random_option
+    def play
+      game_mode =
+        options.advanced ? GameMode::ADVANCED : GameMode::BASIC
 
+      choice = input_choice(game_mode)
+      random = T.cast(game_mode.options.sample, Option)
+
+      puts '------'
       puts "Bot: #{random}"
       puts "You: #{choice}"
       puts '------'
@@ -36,46 +43,19 @@ class Rochambeau
       end
     end
 
+    default_task :play
+
     private
 
-    sig { returns(Option) }
-    def random_option
-      # TODO: Remove T.cast
-      #   See https://github.com/sorbet/sorbet/issues/3870
-      T.cast(@game_mode.options.sample, Option)
-    end
-
-    sig { returns(Rochambeau::Option) }
-    def input_choice
-      message = ''
-      options = @game_mode.options
-
-      options.each_with_index do |option, index|
-        glue = ', '
-        case index
-        when options.length - 1 then glue = ''
-        when options.length - 2 then glue = ' or '
-        end
-        message += "#{option.label}#{glue}"
+    no_commands do
+      sig { params(game_mode: GameMode).returns(Rochambeau::Option) }
+      def input_choice(game_mode)
+        puts game_mode.options.map(&:label).join(' · ')
+        chosen_initial = ask('Make a choice', {
+          limited_to: game_mode.options.map(&:initial)
+        })
+        Rochambeau::Option.from_initial chosen_initial
       end
-
-      choice = T.let(nil, T.nilable(Rochambeau::Option))
-      while choice.nil?
-        initial = input message
-        begin
-          choice = Rochambeau::Option.from_initial initial
-        rescue Rochambeau::InvalidOptionError
-          puts "That doesn't look right. Try again." if choice.nil?
-        end
-      end
-
-      choice
-    end
-
-    sig { params(message: String).returns(String) }
-    def input(message)
-      puts "#{message}\n" unless message.nil?
-      gets.chomp
     end
   end
 end
