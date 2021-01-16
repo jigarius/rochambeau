@@ -1,6 +1,6 @@
 name: rochambeau
 services:
-  appserver:
+  main:
     type: compose
     services:
       image: ruby:2.7
@@ -10,25 +10,25 @@ services:
       - chmod +x /app/bin/rochambeau
 tooling:
   rochambeau:
-    service: appserver
+    service: main
     cmd: bin/rochambeau
     dir: /app
   irb:
-    service: appserver
+    service: main
     cmd: irb
   bundle:
-    service: appserver
+    service: main
     cmd: bundle
     dir: /app
   rspec:
-    service: appserver
+    service: main
     cmd: bundle exec rspec
     dir: /app
   rubocop:
-    service: appserver
+    service: main
     cmd: bundle exec rubocop
     dir: /app
   srb:
-    service: appserver
+    service: main
     cmd: bundle exec srb
     dir: /app
