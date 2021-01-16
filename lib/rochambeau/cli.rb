@@ -1,8 +1,6 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'thor'
-
 require_relative '../rochambeau'
 require_relative '../rochambeau/option'
 require_relative '../rochambeau/game_mode'

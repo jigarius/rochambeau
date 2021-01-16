@@ -4,7 +4,9 @@
 ##
 # Rochambeau: Entry-point.
 
-require 'sorbet-runtime'
+require 'bundler/setup'
+Bundler.require
+
 require_relative 'lib/rochambeau/cli'
 
 begin
