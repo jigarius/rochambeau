@@ -77,11 +77,11 @@ class Rochambeau
 
     sig { params(other: Option).returns(Integer) }
     def <=>(other)
-      unless Hash === OUTCOMES[self] && Hash === OUTCOMES[self][other]
+      unless OUTCOMES[self] && T.must(OUTCOMES[self])[other]
         raise StandardError, "Could not compare #{self} with #{other}"
       end
 
-      OUTCOMES[self][other][:result]
+      T.must(T.must(OUTCOMES[self])[other])[:result]
     end
 
     sig { returns(String) }
@@ -102,11 +102,11 @@ class Rochambeau
           .returns(T.nilable(String))
       end
       def explain(option1, option2)
-        unless Hash === OUTCOMES[option1] && Hash === OUTCOMES[option1][option2]
+        unless OUTCOMES[option1] && T.must(OUTCOMES[option1])[option2]
           raise StandardError, "Unexpected combination: #{option1}, #{option2}"
         end
 
-        OUTCOMES[option1][option2][:explanation]
+        T.must(T.must(OUTCOMES[option1])[option2])[:explanation]
       end
 
       sig { params(initial: String).returns(Option) }
