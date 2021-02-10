@@ -27,38 +27,61 @@ class Rochambeau
       T::Array[Option]
     )
 
+    OUTCOMES = T.let(
+      {
+        ROCK => {
+          ROCK => { result: 0, explanation: nil },
+          PAPER => { result: -1, explanation: 'Paper covers rock.' },
+          SCISSORS => { result: 1, explanation: 'Rock crushes scissors.' },
+          LIZARD => { result: 1, explanation: 'Rock crushes lizard.' },
+          SPOCK => { result: -1, explanation: 'Spock vaporizes rock.' }
+        },
+        PAPER => {
+          ROCK => { result: 1, explanation: 'Paper covers rock.' },
+          PAPER => { result: 0, explanation: nil },
+          SCISSORS => { result: -1, explanation: 'Scissors cut paper.' },
+          LIZARD => { result: -1, explanation: 'Lizard eats paper.' },
+          SPOCK => { result: 1, explanation: 'Paper disproves Spock.' }
+        },
+        SCISSORS => {
+          ROCK => { result: -1, explanation: 'Rock crushes scissors.' },
+          PAPER => { result: 1, explanation: 'Scissors cut paper.' },
+          SCISSORS => { result: 0, explanation: nil },
+          LIZARD => { result: 1, explanation: 'Scissors decapitate lizard.' },
+          SPOCK => { result: -1, explanation: 'Spock smashes scissors.' }
+        },
+        LIZARD => {
+          ROCK => { result: -1, explanation: 'Rock crushes lizard.' },
+          PAPER => { result: 1, explanation: 'Lizard eats paper.' },
+          SCISSORS => { result: -1, explanation: 'Scissors decapitate lizard.' },
+          LIZARD => { result: 0, explanation: nil },
+          SPOCK => { result: 1, explanation: 'Lizard poisons Spock.' }
+        },
+        SPOCK => {
+          ROCK => { result: 1, explanation: 'Spock vaporizes rock.' },
+          PAPER => { result: -1, explanation: 'Paper disproves Spock.' },
+          SCISSORS => { result: 1, explanation: 'Spock smashes scissors.' },
+          LIZARD => { result: -1, explanation: 'Lizard poisons Spock.' },
+          SPOCK => { result: 0, explanation: nil }
+        }
+      },
+      T::Hash[
+        Option,
+        T::Hash[
+          Option,
+          { result: Integer, explanation: T.nilable(String) }
+        ]
+      ]
+    )
+    private_constant(:OUTCOMES)
+
     sig { params(other: Option).returns(Integer) }
     def <=>(other)
-      return 0 if self == other
-
-      case [self, other]
-      when [ROCK, PAPER] then -1
-      when [ROCK, SCISSORS] then 1
-      when [ROCK, LIZARD] then 1
-      when [ROCK, SPOCK] then -1
-
-      when [PAPER, ROCK] then 1
-      when [PAPER, SCISSORS] then -1
-      when [PAPER, LIZARD] then -1
-      when [PAPER, SPOCK] then 1
-
-      when [SCISSORS, ROCK] then -1
-      when [SCISSORS, PAPER] then 1
-      when [SCISSORS, LIZARD] then 1
-      when [SCISSORS, SPOCK] then -1
-
-      when [LIZARD, ROCK] then -1
-      when [LIZARD, PAPER] then 1
-      when [LIZARD, SCISSORS] then -1
-      when [LIZARD, SPOCK] then 1
-
-      when [SPOCK, ROCK] then 1
-      when [SPOCK, PAPER] then -1
-      when [SPOCK, SCISSORS] then 1
-      when [SPOCK, LIZARD] then -1
-      else
+      unless Hash === OUTCOMES[self] && Hash === OUTCOMES[self][other]
         raise StandardError, "Could not compare #{self} with #{other}"
       end
+
+      OUTCOMES[self][other][:result]
     end
 
     sig { returns(String) }
@@ -79,36 +102,11 @@ class Rochambeau
           .returns(T.nilable(String))
       end
       def explain(option1, option2)
-        return if option1 == option2
-
-        case [option1, option2]
-        when [ROCK, PAPER] then 'Paper covers rock.'
-        when [ROCK, SCISSORS] then 'Rock crushes scissors.'
-        when [ROCK, LIZARD] then 'Rock crushes lizard.'
-        when [ROCK, SPOCK] then 'Spock vaporizes rock.'
-
-        when [PAPER, ROCK] then 'Paper covers rock.'
-        when [PAPER, SCISSORS] then 'Scissors cut paper.'
-        when [PAPER, LIZARD] then 'Lizard eats paper.'
-        when [PAPER, SPOCK] then 'Paper disproves Spock.'
-
-        when [SCISSORS, ROCK] then 'Rock crushes scissors.'
-        when [SCISSORS, PAPER] then 'Scissors cut paper.'
-        when [SCISSORS, LIZARD] then 'Scissors decapitate lizard.'
-        when [SCISSORS, SPOCK] then 'Spock smashes scissors.'
-
-        when [LIZARD, ROCK] then 'Rock crushes lizard.'
-        when [LIZARD, PAPER] then 'Lizard eats paper.'
-        when [LIZARD, SCISSORS] then 'Scissors decapitate lizard.'
-        when [LIZARD, SPOCK] then 'Lizard poisons Spock.'
-
-        when [SPOCK, ROCK] then 'Spock vaporizes rock.'
-        when [SPOCK, PAPER] then 'Paper disproves Spock.'
-        when [SPOCK, SCISSORS] then 'Spock smashes scissors.'
-        when [SPOCK, LIZARD] then 'Lizard poisons Spock.'
-        else
+        unless Hash === OUTCOMES[option1] && Hash === OUTCOMES[option1][option2]
           raise StandardError, "Unexpected combination: #{option1}, #{option2}"
         end
+
+        OUTCOMES[option1][option2][:explanation]
       end
 
       sig { params(initial: String).returns(Option) }

@@ -31,6 +31,8 @@ Metrics/PerceivedComplexity:
 Metrics/MethodLength:
   Enabled: false
 
+Style/CaseEquality:
+  AllowOnConstant: true
 Style/Documentation:
   Enabled: false
 Style/SymbolArray:
