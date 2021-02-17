@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = 'Command-line edition of the Rock-Paper-Scissors game.'
   s.authors = ['Jigar Mehta']
   s.email = 'hello@jigarius.com'
-  s.homepage = 'https://rubygems.org/gems/rochambeau'
+  s.homepage = 'https://github.com/jigarius/rochambeau'
   s.license = 'LGPL-2.1'
   s.executables << 'rochambeau'
 
