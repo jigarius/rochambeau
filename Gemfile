@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
+ruby '~> 2.7'
 source 'https://rubygems.org'
 
-ruby '~> 2.7'
+gemspec
 
+gem 'pry', group: [:development]
 gem 'rspec', group: [:development, :test]
 gem 'rubocop', group: [:development, :test]
-
-# Sorbet
 gem 'sorbet', group: [:development, :test]
-gem 'sorbet-runtime'
-
-# Pry
-gem 'pry', group: :development
-
-# Thor: CLI app helper.
-gem 'thor', '~> 1.0', '>= 1.0.1'
