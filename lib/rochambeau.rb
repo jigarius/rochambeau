@@ -10,7 +10,7 @@ require 'rochambeau/cli'
 class Rochambeau
   extend T::Sig
 
-  VERSION = '1.9'
+  VERSION = '1.9.1'
 
   class InvalidOptionError < StandardError
   end

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require 'rochambeau'
+
 Gem::Specification.new do |s|
   s.name = 'rochambeau'
-  s.version = '0.0.0'
+  s.version = Rochambeau::VERSION
   s.required_ruby_version = '>= 2.7.0'
   s.summary = 'Rock, paper, scissors: Command line edition.'
   s.description = 'Command-line edition of the Rock-Paper-Scissors game.'
