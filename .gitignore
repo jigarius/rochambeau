@@ -10,3 +10,6 @@ sorbet/rbi/hidden-definitions/errors.txt
 
 # OS files.
 .DS_Store
+
+# Build files.
+dist
