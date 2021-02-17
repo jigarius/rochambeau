@@ -1,4 +1,6 @@
-desc "Builds the GEM and installs it for testing."
+# frozen_string_literal: true
+
+desc 'Builds the GEM and installs it for testing.'
 task :build do
   sh 'mkdir -p dist'
   sh 'gem build rochambeau.gemspec --output=dist/rochambeau.gem'

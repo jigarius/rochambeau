@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
     'lib/rochambeau.rb',
     'lib/rochambeau/option.rb',
     'lib/rochambeau/game_mode.rb',
-    'lib/rochambeau/cli.rb'
+    'lib/rochambeau/cli.rb',
   ]
 
   s.add_dependency('sorbet-runtime')
