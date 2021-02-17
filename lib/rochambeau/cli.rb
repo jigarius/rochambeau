@@ -1,10 +1,6 @@
 # typed: true
 # frozen_string_literal: true
 
-require_relative '../rochambeau'
-require_relative '../rochambeau/option'
-require_relative '../rochambeau/game_mode'
-
 class Rochambeau
   class Cli < Thor
     extend T::Sig

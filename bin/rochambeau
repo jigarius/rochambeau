@@ -1,4 +1,15 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+# typed: strict
 
-require_relative '../rochambeau'
+##
+# Rochambeau: Entrypoint.
+
+require 'rochambeau'
+require 'rochambeau/cli'
+
+begin
+  Rochambeau::Cli.start(ARGV)
+rescue Interrupt
+  # No op.
+end
