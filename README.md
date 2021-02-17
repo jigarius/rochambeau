@@ -7,15 +7,12 @@
 
 ## Installation
 
-  * Clone this repository or [download a release](https://github.com/jigarius/rochambeau/releases). 
-  * Add exec permissions; `chmod +x ./bin/rochambeau`
+    gem install rochambeau
 
 ## Usage
 
-The game is in the executable `./bin/rochambeau`.
-
-  * Run `rochambeau` to play.
-    * Add the `--advanced` flag for _Lizard_ and _Spock_.
-  * Run `rochambeau help` for help.
+    rochambeau # Play rock-paper-scissors classic.
+    rochambeau --advanced # Includes Lizard and Spock.
+    rochambeau help # In case you get lost.
 
 Additionally, you can browse through and appreciate the code. 
