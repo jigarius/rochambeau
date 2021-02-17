@@ -5,7 +5,9 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'pry', group: [:development]
-gem 'rspec', group: [:development, :test]
-gem 'rubocop', group: [:development, :test]
-gem 'sorbet', group: [:development, :test]
+group(:development, :test) do
+  gem 'pry'
+  gem 'rspec'
+  gem 'rubocop'
+  gem 'sorbet'
+end
