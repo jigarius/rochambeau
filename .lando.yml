@@ -11,14 +11,14 @@ services:
 tooling:
   rochambeau:
     service: main
-    cmd: bin/rochambeau
     dir: /app
   irb:
     service: main
     cmd: irb
+  rake:
+    service: main
   bundle:
     service: main
-    cmd: bundle
     dir: /app
   test:
     service: main
