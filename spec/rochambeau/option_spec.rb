@@ -3,7 +3,7 @@
 
 require 'rochambeau/option'
 
-class Rochambeau
+module Rochambeau
   describe Option do
     it '.new is not allowed' do
       expect { Option.new('f', 'fork') }

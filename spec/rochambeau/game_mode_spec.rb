@@ -3,7 +3,7 @@
 
 require 'rochambeau/game_mode'
 
-class Rochambeau
+module Rochambeau
   describe GameMode do
     it '.options returns options' do
       expect(GameMode::BASIC.options).to eq([

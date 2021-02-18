@@ -8,7 +8,7 @@ require_relative 'rochambeau/option'
 require_relative 'rochambeau/game_mode'
 require_relative 'rochambeau/cli'
 
-class Rochambeau
+module Rochambeau
   extend T::Sig
 
   VERSION = '1.9.2'

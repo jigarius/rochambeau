@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class Rochambeau
+module Rochambeau
   class Cli < Thor
     extend T::Sig
 
