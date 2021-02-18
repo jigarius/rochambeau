@@ -15,4 +15,14 @@ module Rochambeau
 
   class InvalidOptionError < StandardError
   end
+
+  sig { void }
+  def self.execute
+    Rochambeau::Cli.start(ARGV)
+  rescue Interrupt
+    # No op.
+  end
 end
+
+# Makes this file executable during development.
+Rochambeau.execute if __FILE__ == $PROGRAM_NAME

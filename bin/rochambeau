@@ -6,10 +6,5 @@
 # Rochambeau: Entrypoint.
 
 require 'rochambeau'
-require 'rochambeau/cli'
 
-begin
-  Rochambeau::Cli.start(ARGV)
-rescue Interrupt
-  # No op.
-end
+Rochambeau.execute

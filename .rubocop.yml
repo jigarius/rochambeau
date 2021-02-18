@@ -30,6 +30,8 @@ Metrics/PerceivedComplexity:
   Enabled: false
 Metrics/MethodLength:
   Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
 
 Style/CaseEquality:
   AllowOnConstant: true
