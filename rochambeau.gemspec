@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'lib/rochambeau'
+require_relative 'lib/rochambeau/version'
 
 Gem::Specification.new do |s|
   s.name = 'rochambeau'
