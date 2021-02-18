@@ -6,21 +6,22 @@ module Rochambeau
     extend T::Sig
 
     sig { returns(String) }
-    attr_reader :initial, :name
+    attr_reader :initial, :name, :emoji
 
     private_class_method :new
 
-    sig { params(initial: String, name: String).void }
-    def initialize(initial, name)
+    sig { params(initial: String, name: String, emoji: String).void }
+    def initialize(initial, name, emoji)
       @initial = initial
       @name = name
+      @emoji = emoji
     end
 
-    ROCK = T.let(new('r', 'rock'), Option)
-    PAPER = T.let(new('p', 'paper'), Option)
-    SCISSORS = T.let(new('s', 'scissors'), Option)
-    LIZARD = T.let(new('l', 'lizard'), Option)
-    SPOCK = T.let(new('v', 'spock'), Option)
+    ROCK = T.let(new('r', 'rock', "\u{1FAA8}"), Option)
+    PAPER = T.let(new('p', 'paper', "\u{1F4C3}"), Option)
+    SCISSORS = T.let(new('s', 'scissors', "\u{2702}"), Option)
+    LIZARD = T.let(new('l', 'lizard', "\u{1F98E}"), Option)
+    SPOCK = T.let(new('v', 'spock', "\u{1F596}"), Option)
 
     ALL = T.let(
       [ROCK, PAPER, SCISSORS, LIZARD, SPOCK],
@@ -86,7 +87,7 @@ module Rochambeau
 
     sig { returns(String) }
     def to_s
-      @name
+      "#{@name} #{@emoji}"
     end
 
     sig { returns(String) }
