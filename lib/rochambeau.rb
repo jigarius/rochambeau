@@ -3,9 +3,10 @@
 
 require 'sorbet-runtime'
 require 'thor'
-require 'rochambeau/option'
-require 'rochambeau/game_mode'
-require 'rochambeau/cli'
+
+require_relative 'rochambeau/option'
+require_relative 'rochambeau/game_mode'
+require_relative 'rochambeau/cli'
 
 class Rochambeau
   extend T::Sig
