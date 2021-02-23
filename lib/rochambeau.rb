@@ -7,6 +7,7 @@ require 'thor'
 require_relative 'rochambeau/version'
 require_relative 'rochambeau/option'
 require_relative 'rochambeau/game_mode'
+require_relative 'rochambeau/player'
 require_relative 'rochambeau/cli'
 
 module Rochambeau

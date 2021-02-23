@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 module Rochambeau
@@ -19,7 +19,13 @@ module Rochambeau
            aliases: ['a'],
            type: :boolean,
            default: false,
-           desc: 'Advanced mode contains the options "Lizard" and "Spock".'
+           desc: 'Enable the options "Lizard" and "Spock".'
+    option 'players',
+           aliases: ['p'],
+           type: :numeric,
+           enum: [1, 2],
+           default: 1,
+           desc: 'Choose between 1 player and 2 player modes.'
     sig { void }
     def play
       system 'clear'
@@ -27,40 +33,38 @@ module Rochambeau
       game_mode =
         options.advanced ? GameMode::ADVANCED : GameMode::BASIC
 
-      choice = input_choice(game_mode)
-      random = T.cast(game_mode.options.sample, Option)
+      if options.players == 1
+        p1 = Player::UnnamedHuman.new
+        p2 = Player::Robot.new
+      else
+        p1 = Player::NamedHuman.new('Player 1')
+        p2 = Player::NamedHuman.new('Player 2')
+      end
+
+      T.let(p1, Player)
+      T.let(p2, Player)
+
+      puts game_mode.options.map(&:label).join(' · ')
+      p1_choice = p1.choose_option(game_mode.options)
+      p2_choice = p2.choose_option(game_mode.options)
 
       puts '------'
-      puts "Bot: #{random}"
-      puts "You: #{choice}"
+      puts "#{p1.name}: #{p1_choice}"
+      puts "#{p2.name}: #{p2_choice}"
       puts '------'
 
-      puts Option.explain(choice, random) unless random == choice
+      puts Option.explain(p1_choice, p2_choice) unless p1_choice == p2_choice
 
-      case choice <=> random
+      case p1_choice <=> p2_choice
       when 1
-        puts 'You won (:'
+        puts p1.victory_message
       when -1
-        puts 'Bot won :('
-        puts 'Better luck next time.'
+        puts p2.victory_message
       else
         puts 'Match draw.'
       end
     end
 
     default_task :play
-
-    private
-
-    no_commands do
-      def input_choice(game_mode)
-        T.cast(game_mode, GameMode)
-        puts game_mode.options.map(&:label).join(' · ')
-        chosen_initial = ask('Make a choice', {
-          limited_to: game_mode.options.map(&:initial)
-        })
-        Rochambeau::Option.from_initial chosen_initial
-      end
-    end
   end
 end

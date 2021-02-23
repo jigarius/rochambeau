@@ -2,5 +2,9 @@
 #   srb rbi todo
 
 # typed: strong
-module T::CompatibilityPatches::RSpecCompatibility::MethodDoubleExtensions; end
-module T::CompatibilityPatches::RSpecCompatibility::RecorderExtensions; end
+module ::Rake::DSL; end
+module ::Rake::TaskLib; end
+module T::InterfaceWrapper::Helpers; end
+module T::Private::Abstract::Hooks; end
+module T::Private::Methods::MethodHooks; end
+module T::Private::Methods::SingletonMethodHooks; end

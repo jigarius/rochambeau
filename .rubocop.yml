@@ -44,3 +44,8 @@ Style/HashEachMethods:
     - spec/rochambeau/option_spec.rb
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: consistent_comma
+Style/TrivialAccessors:
+  Exclude:
+    - lib/rochambeau/player.rb
+Style/WordArray:
+  EnforcedStyle: brackets
