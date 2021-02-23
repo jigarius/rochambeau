@@ -11,7 +11,7 @@ services:
 tooling:
   rochambeau:
     service: main
-    dir: /app
+    cmd: ruby /app/lib/rochambeau.rb
   irb:
     service: main
     cmd: irb
