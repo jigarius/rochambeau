@@ -1,9 +1,6 @@
 # typed: false
 # frozen_string_literal: true
 
-require 'rochambeau/player'
-require 'rochambeau/game_mode'
-
 module Rochambeau
   module Player
     describe Robot do

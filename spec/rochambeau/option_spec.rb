@@ -1,8 +1,6 @@
 # typed: false
 # frozen_string_literal: true
 
-require 'rochambeau/option'
-
 module Rochambeau
   describe Option do
     it '.new is not allowed' do

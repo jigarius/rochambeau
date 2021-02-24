@@ -1,8 +1,6 @@
 # typed: false
 # frozen_string_literal: true
 
-require 'rochambeau/game_mode'
-
 module Rochambeau
   describe GameMode do
     it '.options returns options' do
