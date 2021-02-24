@@ -20,7 +20,7 @@ module Rochambeau
   def self.execute
     Rochambeau::Cli.start(ARGV)
   rescue ArgumentError => e
-    warn(e)
+    warn(e.to_s)
   rescue Interrupt
     # No op.
   end
